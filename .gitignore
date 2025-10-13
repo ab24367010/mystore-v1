@@ -1,0 +1,20 @@
+# Нууц мэдээлэл
+.env
+
+# Vendor
+/vendor/
+
+# Composer
+composer.lock
+
+# Uploads
+/uploads/templates/*
+/uploads/files/*
+!.gitkeep
+
+# Logs
+*.log
+
+# OS файлууд
+.DS_Store
+Thumbs.db

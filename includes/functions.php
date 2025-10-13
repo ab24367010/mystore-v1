@@ -59,15 +59,11 @@ function generateToken($length = 32) {
     return bin2hex(random_bytes($length));
 }
 
-// Имэйл илгээх
-function sendEmail($to, $subject, $message) {
-    $headers = "From: " . ADMIN_EMAIL . "\r\n";
-    $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-    return mail($to, $subject, $message, $headers);
-}
-
 // Захиалгын дугаар үүсгэх
 function generateOrderNumber() {
     return 'ORD-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -6));
 }
+
+// Mailer функцүүд
+require_once __DIR__ . '/mailer.php';
 ?>

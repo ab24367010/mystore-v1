@@ -62,6 +62,7 @@ body {
     background-image: url(../images/hero-bg.jpg);
     background-size: cover;
     background-position: center;
+    z-index: auto;
     color: white;
     padding: 80px 0;
     text-align: center;
@@ -268,9 +269,10 @@ body {
     color: #6b7280;
     cursor: pointer;
 }
+
 .footer {
-    background: linear-gradient(to bottom, var(--bg-primary) 0%, #e2e8f0 100%);
-    color: var(--text-secondary);
+    background: #1f2937;
+    color: white;
     padding: 80px 0 30px;
     margin-top: 100px;
     border-top: 1px solid var(--border-color);
@@ -287,7 +289,7 @@ body {
 
 .footer-section h3,
 .footer-section h4 {
-    color: var(--text-primary);
+    color: white;
     margin-bottom: 24px;
     font-weight: 700;
     font-size: 18px;
@@ -296,7 +298,7 @@ body {
 .footer-section p {
     line-height: 1.8;
     font-size: 15px;
-    color: var(--text-secondary);
+    color: white;
 }
 
 .footer-section ul {
@@ -309,7 +311,7 @@ body {
 }
 
 .footer-section ul li a {
-    color: var(--text-secondary);
+    color: white;
     text-decoration: none;
     transition: all 0.3s;
     display: inline-flex;
@@ -318,26 +320,26 @@ body {
 }
 
 .footer-section ul li a:hover {
-    color: var(--accent-primary);
+    color: #2563eb;
     transform: translateX(5px);
 }
 
 .footer-section i {
-    color: var(--accent-primary);
+    color: #2563eb;
     margin-right: 10px;
 }
 
 .footer-bottom {
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid #444;
     margin-top: 50px;
     text-align: center;
     padding-top: 30px;
     font-size: 14px;
-    color: var(--text-muted);
+    color: white;
 }
 
 .footer-section.about p {
-    color: var(--text-secondary);
+    color: white;
 }
 
 /* Responsive */

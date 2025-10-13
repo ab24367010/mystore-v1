@@ -32,40 +32,33 @@ if($stmt->execute()) {
     $stmt2->execute();
     $order = $stmt2->get_result()->fetch_assoc();
     
-    // Имэйл илгээх
-    $subject = "✅ Төлбөр баталгаажлаа - #" . $order['order_number'];
-    $message = "
-    <html>
-    <body style='font-family: Arial, sans-serif; line-height: 1.6;'>
-        <div style='max-width: 600px; margin: 0 auto; padding: 20px;'>
-            <div style='background: #10b981; color: white; padding: 20px; text-align: center; border-radius: 5px;'>
-                <h1>✅ Төлбөр хүлээн авлаа!</h1>
-            </div>
-            
-            <div style='background: #f9f9f9; padding: 30px; margin-top: 20px; border: 1px solid #e5e7eb;'>
-                <p>Сайн байна уу <strong>" . htmlspecialchars($order['user_name']) . "</strong>,</p>
-                
-                <p>Таны төлбөр амжилттай баталгаажлаа! 🎉</p>
-                
-                <div style='background: white; padding: 20px; margin: 20px 0; border-radius: 5px;'>
-                    <p><strong>Захиалгын дугаар:</strong> #" . $order['order_number'] . "</p>
-                    <p><strong>Template:</strong> " . htmlspecialchars($order['template_name']) . "</p>
-                </div>
-                
-                <div style='background: #d1fae5; padding: 20px; margin: 20px 0; border-radius: 5px; border-left: 4px solid #10b981;'>
-                    <h3 style='margin-top: 0;'>📦 Дараагийн алхам</h3>
-                    <p>Template татах линк удахгүй имэйлээр ирнэ (24 цагийн дотор).</p>
-                    <p>Эсвэл <a href='" . SITE_URL . "/user/my-templates.php'>Миний Template-үүд</a> хуудаснаас шууд татаж авна уу.</p>
-                </div>
-                
-                <p>Баярлалаа!<br><strong>" . SITE_NAME . "</strong></p>
-            </div>
+    // Имэйл агуулга бэлтгэх
+    $content = "
+        <p>Сайн байна уу <strong>" . htmlspecialchars($order['user_name']) . "</strong>,</p>
+        
+        <p>Таны төлбөр амжилттай баталгаажлаа! 🎉</p>
+        
+        <div class='success-box'>
+            <h3>✅ Төлбөр хүлээн авлаа!</h3>
+            <p>Захиалгын дугаар: <strong>#" . $order['order_number'] . "</strong></p>
+            <p>Template: <strong>" . htmlspecialchars($order['template_name']) . "</strong></p>
         </div>
-    </body>
-    </html>
+        
+        <div class='info-box'>
+            <h3>📦 Дараагийн алхам</h3>
+            <p>Template татах линк удахгүй имэйлээр ирнэ (24 цагийн дотор).</p>
+            <p>Эсвэл <a href='" . SITE_URL . "/user/my-templates.php'>Миний Template-үүд</a> хуудаснаас шууд татаж авна уу.</p>
+        </div>
+        
+        <a href='" . SITE_URL . "/user/my-templates.php' class='button'>Миний Template-үүд харах</a>
+        
+        <p>Баярлалаа!<br><strong>" . SITE_NAME . " баг</strong></p>
     ";
     
-    sendEmail($order['email'], $subject, $message);
+    $subject = "✅ Төлбөр баталгаажлаа - #" . $order['order_number'];
+    $htmlMessage = getEmailTemplate("Төлбөр баталгаажлаа", $content);
+    
+    sendEmail($order['email'], $subject, $htmlMessage);
     
     setAlert("Захиалга #" . $order['order_number'] . " амжилттай 'Paid' болгогдлоо", 'success');
 } else {
