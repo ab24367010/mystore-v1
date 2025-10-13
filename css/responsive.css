@@ -1,0 +1,53 @@
+/* Mobile First - Responsive Design */
+
+/* Tablet (768px ба түүнээс бага) */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .navbar .nav-menu {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .hero h1 {
+        font-size: 32px;
+    }
+    
+    .templates-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Mobile (480px ба түүнээс бага) */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 24px;
+    }
+    
+    .hero p {
+        font-size: 16px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    .template-card h3 {
+        font-size: 18px;
+    }
+    
+    .price {
+        font-size: 20px;
+    }
+}
+
+/* Large Desktop (1400px ба түүнээс их) */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+}

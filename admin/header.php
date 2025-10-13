@@ -11,6 +11,7 @@ if(!isAdmin()) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($page_title) ? $page_title . ' - ' : ''; ?>Админ Панел</title>
     <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/style.css">
+    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/responsive.css">
     <style>
         /* Админ navbar загвар */
         .admin-navbar {

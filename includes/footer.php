@@ -2,7 +2,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="<?php echo htmlspecialchars(SITE_URL); ?>/images/favicon.ico">
-    <link rel="stylesheet" href="<?php echo htmlspecialchars(SITE_URL); ?>/css/styles.css">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars(SITE_URL); ?>/css/style.css">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars(SITE_URL); ?>/css/responsive.css">
     <title><?php echo htmlspecialchars($page_title); ?></title>
 </head>
 <footer class="footer">
@@ -21,6 +22,7 @@
                 <li><a href="<?php echo htmlspecialchars(SITE_URL); ?>/about.php">About</a></li>
                 <li><a href="<?php echo htmlspecialchars(SITE_URL); ?>/contact.php">Contact</a></li>
                 <li><a href="<?php echo htmlspecialchars(SITE_URL); ?>/faq.php">FAQ</a></li>
+                <li><a href="<?php echo htmlspecialchars(SITE_URL); ?>/privacy-policy.php">Privacy Policy</a></li>
             </ul>
         </div>
 

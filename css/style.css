@@ -177,15 +177,6 @@ body {
     margin-bottom: 15px;
 }
 
-/* Footer */
-.footer {
-    background: #1f2937;
-    color: white;
-    padding: 30px 0;
-    text-align: center;
-    margin-top: 60px;
-}
-
 /* Form загвар */
 .form-group {
     margin-bottom: 20px;

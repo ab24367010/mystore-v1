@@ -51,6 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Админ нэвтрэх - <?php echo SITE_NAME; ?></title>
     <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/style.css">
+    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/responsive.css">
 </head>
 <body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center;">
 
