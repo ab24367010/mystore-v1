@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Elegant Live Clock Wallpaper</title>
+
+  <!-- Elegant cursive font (fallbacks included) -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Background photo (put your forest/road image named background.jpg in same folder) -->
+  <div class="bg"></div>
+
+  <!-- Particles canvas sits above bg -->
+  <canvas id="particles"></canvas>
+
+  <!-- UI overlay -->
+  <div class="ui">
+    <div class="weather" id="weather">
+      <div class="w-left">
+        <div id="w-icon" class="icon">☁️</div>
+      </div>
+      <div class="w-right">
+        <div id="w-temp" class="temp">--°C</div>
+        <div id="w-desc" class="desc">Loading…</div>
+        <div id="w-place" class="place">—</div>
+      </div>
+    </div>
+
+    <div class="clock-card">
+      <div class="time" id="time">00:00:00</div>
+      <div class="weekday" id="weekday">Thursday</div>
+      <div class="date" id="date">4th November 2025</div>
+    </div>
+
+    <div class="footer">Elegant • Live Wallpaper</div>
+  </div>
+
+  <div class="watermark">DEMO - MyStore</div>
+  <!-- Demo Protection -->
+  <script src="../../js/demo-protection.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
