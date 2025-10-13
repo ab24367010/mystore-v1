@@ -4,6 +4,7 @@
     <link rel="icon" type="image/x-icon" href="<?php echo htmlspecialchars(SITE_URL); ?>/images/favicon.ico">
     <link rel="stylesheet" href="<?php echo htmlspecialchars(SITE_URL); ?>/css/style.css">
     <link rel="stylesheet" href="<?php echo htmlspecialchars(SITE_URL); ?>/css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <title><?php echo htmlspecialchars($page_title); ?></title>
 </head>
 <footer class="footer">
@@ -29,7 +30,7 @@
         <div class="footer-section contact">
             <h4>Холбоо барих</h4>
             <p><i class="fas fa-envelope"></i> info@<?php echo strtolower(htmlspecialchars(SITE_NAME)); ?>.com</p>
-            <p><i class="fas fa-phone"></i> +81 80 0000 0000</p>
+            <p><i class="fas fa-phone"></i> +81 80 9053 6482</p>
             <p><i class="fas fa-map-marker-alt"></i> Tokyo, Japan</p>
         </div>
     </div>
