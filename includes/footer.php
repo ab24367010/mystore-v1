@@ -1,3 +1,10 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="<?php echo htmlspecialchars(SITE_URL); ?>/images/favicon.ico">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars(SITE_URL); ?>/css/styles.css">
+    <title><?php echo htmlspecialchars($page_title); ?></title>
+</head>
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-section about">
@@ -13,6 +20,7 @@
                 <li><a href="<?php echo htmlspecialchars(SITE_URL); ?>/templates.php">Templates</a></li>
                 <li><a href="<?php echo htmlspecialchars(SITE_URL); ?>/about.php">About</a></li>
                 <li><a href="<?php echo htmlspecialchars(SITE_URL); ?>/contact.php">Contact</a></li>
+                <li><a href="<?php echo htmlspecialchars(SITE_URL); ?>/faq.php">FAQ</a></li>
             </ul>
         </div>
 
