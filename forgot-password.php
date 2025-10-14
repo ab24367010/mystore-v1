@@ -2,6 +2,8 @@
 require_once 'includes/config.php';
 require_once 'includes/functions.php';
 
+date_default_timezone_set('Asia/Tokyo');
+
 // Хэрэв аль хэдийн нэвтэрсэн бол dashboard руу шилжүүлэх
 if(isLoggedIn()) {
     redirect('user/dashboard.php');

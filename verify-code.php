@@ -2,12 +2,10 @@
 require_once 'includes/config.php';
 require_once 'includes/functions.php';
 
-// Хэрэв аль хэдийн нэвтэрсэн бол dashboard руу шилжүүлэх
 if(isLoggedIn()) {
     redirect('user/dashboard.php');
 }
 
-// Session-д email байгаа эсэхийг шалгах
 if(!isset($_SESSION['reset_email'])) {
     redirect('forgot-password.php');
 }
@@ -15,13 +13,10 @@ if(!isset($_SESSION['reset_email'])) {
 $email = $_SESSION['reset_email'];
 $error = '';
 $resend_message = '';
-
-// Имэйл хаяг олдоогүй байвал (security check)
 $is_unknown = isset($_GET['unknown']) && $_GET['unknown'] == '1';
 
 // Код дахин илгээх
 if(isset($_GET['resend']) && $_GET['resend'] == '1' && !$is_unknown) {
-    // Хэрэглэгч хайх
     $sql = "SELECT id, name FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
@@ -31,13 +26,11 @@ if(isset($_GET['resend']) && $_GET['resend'] == '1' && !$is_unknown) {
     if($result->num_rows > 0) {
         $user = $result->fetch_assoc();
 
-        // Хуучин код устгах
         $sql = "DELETE FROM password_reset_codes WHERE user_id = ? AND verified = 0";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $user['id']);
         $stmt->execute();
 
-        // Шинэ код үүсгэх
         $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
         $expires_at = date('Y-m-d H:i:s', strtotime('+15 minutes'));
 
@@ -46,7 +39,6 @@ if(isset($_GET['resend']) && $_GET['resend'] == '1' && !$is_unknown) {
         $stmt->bind_param("iss", $user['id'], $code, $expires_at);
         $stmt->execute();
 
-        // Email илгээх
         $content = "
         <p>Сайн байна уу <strong>" . htmlspecialchars($user['name']) . "</strong>,</p>
         <p>Таны хүсэлтээр шинэ баталгаажуулах код илгээж байна.</p>
@@ -72,14 +64,15 @@ if(isset($_GET['resend']) && $_GET['resend'] == '1' && !$is_unknown) {
     }
 }
 
-// Код баталгаажуулах
+// Код баталгаажуулах - ЗАСВАРЛАСАН
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $code = clean($_POST['code']);
+    // Кодыг цэвэрлэх - зөвхөн тоо авах
+    $code = preg_replace('/[^0-9]/', '', trim($_POST['code']));
 
     if(empty($code)) {
         $error = "Кодоо оруулна уу";
     } elseif(strlen($code) != 6) {
-        $error = "Код 6 оронтой байх ёстой";
+        $error = "Код 6 оронтой байх ёстой (одоо: " . strlen($code) . " тэмдэгт)";
     } elseif($is_unknown) {
         $error = "Имэйл хаяг олдсонгүй. Дахин оролдоно уу.";
     } else {
@@ -96,8 +89,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Код шалгах
             $sql = "SELECT * FROM password_reset_codes
-                    WHERE user_id = ? AND code = ? AND verified = 0 AND expires_at > NOW()
-                    ORDER BY created_at DESC LIMIT 1";
+                    WHERE user_id = ? 
+                    AND code = ? 
+                    AND verified = 0 
+                    AND expires_at > NOW()
+                    ORDER BY created_at DESC 
+                    LIMIT 1";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("is", $user_id, $code);
             $stmt->execute();
@@ -105,13 +102,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if($result->num_rows > 0) {
                 $code_data = $result->fetch_assoc();
-
-                // Оролдлогын тоог нэмэгдүүлэх
                 $attempts = $code_data['attempts'] + 1;
 
-                // Хэт олон оролдсон эсэхийг шалгах (максимум 5 удаа)
                 if($attempts > 5) {
-                    // Код устгах
                     $sql = "DELETE FROM password_reset_codes WHERE id = ?";
                     $stmt = $conn->prepare($sql);
                     $stmt->bind_param("i", $code_data['id']);
@@ -121,21 +114,40 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     unset($_SESSION['reset_email']);
                     unset($_SESSION['reset_user_id']);
                 } else {
-                    // Код баталгаажсан
+                    // Код баталгаажсан ✅
                     $sql = "UPDATE password_reset_codes SET verified = 1, attempts = ? WHERE id = ?";
                     $stmt = $conn->prepare($sql);
                     $stmt->bind_param("ii", $attempts, $code_data['id']);
                     $stmt->execute();
 
-                    // Session-д code_id хадгалах
                     $_SESSION['verified_code_id'] = $code_data['id'];
-
-                    // Нууц үг шинэчлэх хуудас руу шилжүүлэх
                     redirect('reset-password.php');
                 }
             } else {
-                // Буруу код эсвэл хугацаа дууссан
-                // Одоо байгаа code-н оролдлогыг нэмэгдүүлэх
+                // DEBUG: Яагаад олдоогүй байгааг олох
+                $debug_sql = "SELECT code, verified, expires_at, 
+                             CASE 
+                                WHEN expires_at < NOW() THEN 'Хугацаа дууссан'
+                                WHEN verified = 1 THEN 'Аль хэдийн баталгаажсан'
+                                ELSE 'Код таарахгүй'
+                             END as reason
+                             FROM password_reset_codes 
+                             WHERE user_id = ? 
+                             ORDER BY created_at DESC LIMIT 1";
+                $debug_stmt = $conn->prepare($debug_sql);
+                $debug_stmt->bind_param("i", $user_id);
+                $debug_stmt->execute();
+                $debug_result = $debug_stmt->get_result();
+                
+                if($debug_result->num_rows > 0) {
+                    $debug = $debug_result->fetch_assoc();
+                    $error = "Код буруу байна. Шалтгаан: " . $debug['reason'] . 
+                            " (Оруулсан: " . $code . ", Database: " . $debug['code'] . ")";
+                } else {
+                    $error = "Код олдсонгүй. Шинэ код авна уу.";
+                }
+                
+                // Оролдлого нэмэгдүүлэх
                 $sql = "UPDATE password_reset_codes
                         SET attempts = attempts + 1
                         WHERE user_id = ? AND verified = 0 AND expires_at > NOW()
@@ -143,8 +155,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("i", $user_id);
                 $stmt->execute();
-
-                $error = "Код буруу байна эсвэл хугацаа нь дууссан байна";
             }
         } else {
             $error = "Имэйл хаяг олдсонгүй";
@@ -157,6 +167,7 @@ include 'includes/header.php';
 include 'includes/navbar.php';
 ?>
 
+<!-- HTML хэсэг өмнөх хэвээрээ -->
 <div class="container" style="max-width: 500px; margin-top: 50px; margin-bottom: 50px;">
     <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
         <div style="text-align: center; margin-bottom: 20px;">
