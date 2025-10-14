@@ -74,8 +74,13 @@ include 'includes/navbar.php';
             <div class="form-group">
                 <label>Нууц үг</label>
                 <input type="password" name="password" placeholder="••••••••" required>
+                <div style="text-align: right; margin-top: 5px;">
+                    <a href="forgot-password.php" style="color: #2563eb; text-decoration: none; font-size: 14px;">
+                        Нууц үг мартсан уу?
+                    </a>
+                </div>
             </div>
-            
+
             <button type="submit" class="btn btn-primary" style="width: 100%;">
                 Нэвтрэх
             </button>

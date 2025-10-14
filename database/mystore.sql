@@ -53,6 +53,26 @@ CREATE TABLE admins (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- 6. Нууц үг сэргээх verification codes хүснэгт
+CREATE TABLE IF NOT EXISTS password_reset_codes (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    code VARCHAR(6) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    verified TINYINT(1) DEFAULT 0,
+    attempts INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_user_code (user_id, code),
+    INDEX idx_expires (expires_at)
+);
+
+-- Хуучин болон ашигласан code-уудыг автоматаар устгах
+-- (Өдөр бүр явуулах хэрэгтэй, эсвэл cron job-оор)
+DELETE FROM password_reset_codes
+WHERE expires_at < NOW() OR verified = 1;
+
+
 -- Анхны админ үүсгэх (username: admin, password: admin123)
 INSERT INTO admins (username, password, email) 
 VALUES ('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@yoursite.com');

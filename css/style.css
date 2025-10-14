@@ -8,7 +8,7 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    color: #333;
+    color: #1a1a1a;
 }
 
 .container {
@@ -19,7 +19,7 @@ body {
 
 /* Navbar загвар */
 .navbar {
-    background: #2563eb;
+    background: #1e3a8a;
     color: white;
     padding: 15px 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -37,12 +37,12 @@ body {
     color: white;
     text-decoration: none;
     display: flex;
-    align-items: center; /* Зураг ба текстийг босоогоор төвлөнө */
+    align-items: center;
 }
 
 .navbar .logo-img {
-    height: 50px;          /* Логогийн өндөр */
-    margin-right: 10px;    /* Текстээс зай */
+    height: 50px;
+    margin-right: 10px;
     vertical-align: middle;
 }
 
@@ -66,7 +66,6 @@ body {
 
 /* Hero section */
 .hero {
-    /*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
     background-image: url(../images/hero-bg.webp);
     background-size: cover;
     background-position: center;
@@ -108,21 +107,21 @@ body {
 }
 
 .btn-success {
-    background: #10b981;
+    background: #475569;
     color: white;
 }
 
 .btn-success:hover {
-    background: #059669;
+    background: #334155;
 }
 
 .btn-white {
     background: white;
-    color: #2563eb;
+    color: #1e3a8a;
 }
 
 .btn-white:hover {
-    background: #f3f4f6;
+    background: #e5e7eb;
 }
 
 /* Templates Grid */
@@ -176,7 +175,7 @@ body {
 .template-card .price {
     font-size: 24px;
     font-weight: bold;
-    color: #2563eb;
+    color: #1e40af;
     margin: 10px 0;
 }
 
@@ -219,15 +218,15 @@ body {
 }
 
 .alert-success {
-    background: #d1fae5;
-    color: #065f46;
-    border: 1px solid #10b981;
+    background: #e5e7eb;
+    color: #1f2937;
+    border: 1px solid #9ca3af;
 }
 
 .alert-error {
-    background: #fee2e2;
-    color: #991b1b;
-    border: 1px solid #ef4444;
+    background: #374151;
+    color: #f3f4f6;
+    border: 1px solid #1f2937;
 }
 
 /* Modal загвар */
@@ -274,7 +273,7 @@ body {
     color: white;
     padding: 80px 0 30px;
     margin-top: 100px;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid #374151;
 }
 
 .footer-container {
@@ -297,7 +296,7 @@ body {
 .footer-section p {
     line-height: 1.8;
     font-size: 15px;
-    color: white;
+    color: #e5e7eb;
 }
 
 .footer-section ul {
@@ -310,7 +309,7 @@ body {
 }
 
 .footer-section ul li a {
-    color: white;
+    color: #d1d5db;
     text-decoration: none;
     transition: all 0.3s;
     display: inline-flex;
@@ -319,26 +318,26 @@ body {
 }
 
 .footer-section ul li a:hover {
-    color: #2563eb;
+    color: #60a5fa;
     transform: translateX(5px);
 }
 
 .footer-section i {
-    color: #2563eb;
+    color: #3b82f6;
     margin-right: 10px;
 }
 
 .footer-bottom {
-    border-top: 1px solid #444;
+    border-top: 1px solid #4b5563;
     margin-top: 50px;
     text-align: center;
     padding-top: 30px;
     font-size: 14px;
-    color: white;
+    color: #d1d5db;
 }
 
 .footer-section.about p {
-    color: white;
+    color: #e5e7eb;
 }
 
 /* Responsive */
