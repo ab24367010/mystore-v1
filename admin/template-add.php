@@ -66,6 +66,32 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bind_param("ssdsssss", $name, $description, $price, $thumbnail, $demo_url, $file_path, $category, $status);
             
             if($stmt->execute()) {
+                $template_id = $conn->insert_id;
+
+                // Нэмэлт screenshot-ууд upload хийх
+                if(isset($_FILES['screenshots']) && !empty($_FILES['screenshots']['name'][0])) {
+                    $allowed = array('jpg', 'jpeg', 'png', 'gif');
+
+                    for($i = 0; $i < count($_FILES['screenshots']['name']); $i++) {
+                        if($_FILES['screenshots']['error'][$i] == 0) {
+                            $filename = $_FILES['screenshots']['name'][$i];
+                            $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+                            if(in_array($ext, $allowed) && $_FILES['screenshots']['size'][$i] < 5242880) {
+                                $screenshot_name = uniqid() . '.' . $ext;
+                                move_uploaded_file($_FILES['screenshots']['tmp_name'][$i], '../uploads/templates/' . $screenshot_name);
+
+                                // Database-д нэмэх
+                                $screenshot_sql = "INSERT INTO template_screenshots (template_id, image_path, display_order) VALUES (?, ?, ?)";
+                                $screenshot_stmt = $conn->prepare($screenshot_sql);
+                                $display_order = $i + 1;
+                                $screenshot_stmt->bind_param("isi", $template_id, $screenshot_name, $display_order);
+                                $screenshot_stmt->execute();
+                            }
+                        }
+                    }
+                }
+
                 setAlert("Template амжилттай нэмэгдлээ!", 'success');
                 redirect('templates.php');
             } else {
@@ -153,11 +179,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             <!-- Thumbnail -->
             <div class="form-group">
-                <label>Thumbnail зураг</label>
+                <label>Thumbnail зураг (Үндсэн зураг) *</label>
                 <input type="file" name="thumbnail" accept="image/*">
-                <p style="color: #6b7280; font-size: 12px; margin-top: 5px;">PNG, JPG, GIF (max 5MB)</p>
+                <p style="color: #6b7280; font-size: 12px; margin-top: 5px;">PNG, JPG, GIF (max 5MB) - Энэ зураг жагсаалтанд харагдана</p>
             </div>
-            
+
+            <!-- Нэмэлт screenshots -->
+            <div class="form-group">
+                <label>Нэмэлт Screenshot-ууд (Дэлгэрэнгүй хуудсанд харагдана)</label>
+                <input type="file" name="screenshots[]" accept="image/*" multiple>
+                <p style="color: #6b7280; font-size: 12px; margin-top: 5px;">
+                    PNG, JPG, GIF (max 5MB тус бүр) - Олон зураг сонгож болно (Ctrl/Cmd дарж олон файл сонгох)
+                    <br>Санал: Header, Content, Footer зэрэг янз бүрийн хэсгүүдийн зураг оруулна уу
+                </p>
+            </div>
+
             <!-- ZIP файл -->
             <div class="form-group">
                 <label>Template ZIP файл</label>

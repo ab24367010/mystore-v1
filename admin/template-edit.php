@@ -27,6 +27,13 @@ if($result->num_rows == 0) {
 
 $template = $result->fetch_assoc();
 
+// Одоо байгаа screenshot-уудыг татах
+$screenshot_sql = "SELECT * FROM template_screenshots WHERE template_id = ? ORDER BY display_order ASC";
+$screenshot_stmt = $conn->prepare($screenshot_sql);
+$screenshot_stmt->bind_param("i", $template_id);
+$screenshot_stmt->execute();
+$screenshots = $screenshot_stmt->get_result();
+
 $error = '';
 
 // Форм submit хийхэд
@@ -97,6 +104,66 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bind_param("ssdsssssi", $name, $description, $price, $thumbnail, $demo_url, $file_path, $category, $status, $template_id);
             
             if($stmt->execute()) {
+                // Нэмэлт screenshot-ууд upload хийх
+                if(isset($_FILES['screenshots']) && !empty($_FILES['screenshots']['name'][0])) {
+                    $allowed = array('jpg', 'jpeg', 'png', 'gif');
+
+                    for($i = 0; $i < count($_FILES['screenshots']['name']); $i++) {
+                        if($_FILES['screenshots']['error'][$i] == 0) {
+                            $filename = $_FILES['screenshots']['name'][$i];
+                            $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+                            if(in_array($ext, $allowed) && $_FILES['screenshots']['size'][$i] < 5242880) {
+                                $screenshot_name = uniqid() . '.' . $ext;
+                                move_uploaded_file($_FILES['screenshots']['tmp_name'][$i], '../uploads/templates/' . $screenshot_name);
+
+                                // Одоогийн хамгийн том display_order-г олох
+                                $order_sql = "SELECT MAX(display_order) as max_order FROM template_screenshots WHERE template_id = ?";
+                                $order_stmt = $conn->prepare($order_sql);
+                                $order_stmt->bind_param("i", $template_id);
+                                $order_stmt->execute();
+                                $order_result = $order_stmt->get_result()->fetch_assoc();
+                                $next_order = ($order_result['max_order'] ?? 0) + 1;
+
+                                // Database-д нэмэх
+                                $screenshot_sql = "INSERT INTO template_screenshots (template_id, image_path, display_order) VALUES (?, ?, ?)";
+                                $screenshot_stmt = $conn->prepare($screenshot_sql);
+                                $screenshot_stmt->bind_param("isi", $template_id, $screenshot_name, $next_order);
+                                $screenshot_stmt->execute();
+                            }
+                        }
+                    }
+                }
+
+                // Screenshot устгах (хэрэв хүсэлт ирсэн бол)
+                if(isset($_POST['delete_screenshots']) && is_array($_POST['delete_screenshots'])) {
+                    foreach($_POST['delete_screenshots'] as $screenshot_id) {
+                        $screenshot_id = (int)$screenshot_id;
+
+                        // Файлын нэрийг олох
+                        $get_sql = "SELECT image_path FROM template_screenshots WHERE id = ? AND template_id = ?";
+                        $get_stmt = $conn->prepare($get_sql);
+                        $get_stmt->bind_param("ii", $screenshot_id, $template_id);
+                        $get_stmt->execute();
+                        $get_result = $get_stmt->get_result();
+
+                        if($get_result->num_rows > 0) {
+                            $screenshot_data = $get_result->fetch_assoc();
+
+                            // Файл устгах
+                            if(file_exists('../uploads/templates/' . $screenshot_data['image_path'])) {
+                                unlink('../uploads/templates/' . $screenshot_data['image_path']);
+                            }
+
+                            // Database-с устгах
+                            $delete_sql = "DELETE FROM template_screenshots WHERE id = ?";
+                            $delete_stmt = $conn->prepare($delete_sql);
+                            $delete_stmt->bind_param("i", $screenshot_id);
+                            $delete_stmt->execute();
+                        }
+                    }
+                }
+
                 setAlert("Template амжилттай шинэчлэгдлээ!", 'success');
                 redirect('templates.php');
             } else {
@@ -181,19 +248,59 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             <!-- Thumbnail -->
             <div class="form-group">
-                <label>Thumbnail зураг</label>
-                
+                <label>Thumbnail зураг (Үндсэн зураг)</label>
+
                 <?php if($template['thumbnail']): ?>
                     <div style="margin-bottom: 10px;">
-                        <img src="<?php echo SITE_URL . '/uploads/templates/' . $template['thumbnail']; ?>" 
+                        <img src="<?php echo SITE_URL . '/uploads/templates/' . $template['thumbnail']; ?>"
                              alt="Current thumbnail"
                              style="width: 200px; height: auto; border-radius: 5px; border: 2px solid #e5e7eb;">
                         <p style="color: #6b7280; font-size: 12px; margin-top: 5px;">Одоогийн зураг</p>
                     </div>
                 <?php endif; ?>
-                
+
                 <input type="file" name="thumbnail" accept="image/*">
                 <p style="color: #6b7280; font-size: 12px; margin-top: 5px;">Шинэ зураг сонговол хуучинх солигдоно</p>
+            </div>
+
+            <!-- Одоо байгаа screenshot-ууд -->
+            <?php
+            // Reset pointer for reuse
+            $screenshots_array = [];
+            while($row = $screenshots->fetch_assoc()) {
+                $screenshots_array[] = $row;
+            }
+            ?>
+
+            <?php if(count($screenshots_array) > 0): ?>
+                <div class="form-group">
+                    <label>Одоо байгаа Screenshot-ууд</label>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 10px;">
+                        <?php foreach($screenshots_array as $screenshot): ?>
+                            <div style="position: relative; border: 2px solid #e5e7eb; border-radius: 5px; overflow: hidden;">
+                                <img src="<?php echo SITE_URL . '/uploads/templates/' . $screenshot['image_path']; ?>"
+                                     alt="Screenshot"
+                                     style="width: 100%; height: 150px; object-fit: cover;">
+                                <div style="padding: 10px; background: #f9fafb;">
+                                    <label style="display: flex; align-items: center; font-size: 13px; cursor: pointer; margin: 0;">
+                                        <input type="checkbox" name="delete_screenshots[]" value="<?php echo $screenshot['id']; ?>" style="margin-right: 8px;">
+                                        <span style="color: #ef4444;">Устгах</span>
+                                    </label>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <p style="color: #ef4444; font-size: 12px; margin-top: 10px;">⚠️ Устгах зургуудыг сонгоод "Шинэчлэх" товч дарна уу</p>
+                </div>
+            <?php endif; ?>
+
+            <!-- Нэмэлт screenshot-ууд нэмэх -->
+            <div class="form-group">
+                <label>Шинэ Screenshot-ууд нэмэх</label>
+                <input type="file" name="screenshots[]" accept="image/*" multiple>
+                <p style="color: #6b7280; font-size: 12px; margin-top: 5px;">
+                    PNG, JPG, GIF (max 5MB тус бүр) - Олон зураг сонгож болно
+                </p>
             </div>
             
             <!-- ZIP файл -->

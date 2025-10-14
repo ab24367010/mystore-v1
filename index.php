@@ -33,8 +33,17 @@ include 'includes/navbar.php';
             ?>
             
             <div class="template-card">
-                <img src="<?php echo $template['thumbnail'] ? SITE_URL . '/uploads/templates/' . $template['thumbnail'] : SITE_URL . '/images/placeholder.jpg'; ?>" 
-                     alt="<?php echo $template['name']; ?>">
+                <div style="position: relative; overflow: hidden;">
+                    <img src="<?php echo $template['thumbnail'] ? SITE_URL . '/uploads/templates/' . $template['thumbnail'] : SITE_URL . '/images/placeholder.jpg'; ?>"
+                         alt="<?php echo $template['name']; ?>">
+
+                    <!-- Watermark -->
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;">
+                        <div style="font-size: 20px; font-weight: bold; color: rgba(37, 99, 235, 0.2); transform: rotate(-45deg); user-select: none; white-space: nowrap;">
+                            PREVIEW
+                        </div>
+                    </div>
+                </div>
                 <div class="template-card-content">
                     <h3><?php echo $template['name']; ?></h3>
                     <p><?php echo substr($template['description'], 0, 100); ?>...</p>
