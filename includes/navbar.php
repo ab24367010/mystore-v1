@@ -1,7 +1,7 @@
 <nav class="navbar">
     <div class="container">
         <a href="<?php echo SITE_URL; ?>" class="logo">
-            <img src="images/logo.png" alt="Logo" class="logo-img">
+            <img src="<?php echo SITE_URL; ?>/images/logo.png" alt="Logo" class="logo-img">
             <?php echo SITE_NAME; ?>
         </a>
         
