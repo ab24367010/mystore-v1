@@ -1,53 +1,201 @@
-/* Mobile First - Responsive Design */
+/* ================================
+   📱 RESPONSIVE DESIGN
+   Tailored for style.css structure
+================================ */
 
-/* Tablet (768px ба түүнээс бага) */
-@media (max-width: 768px) {
+/* ---------- TABLET (max-width: 1024px) ---------- */
+@media (max-width: 1024px) {
     .container {
+        max-width: 90%;
         padding: 0 15px;
     }
-    
+
+    .navbar .nav-menu {
+        gap: 15px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .templates-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+/* ---------- MOBILE LARGE (max-width: 768px) ---------- */
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar .logo {
+        margin-bottom: 10px;
+    }
+
     .navbar .nav-menu {
         flex-direction: column;
+        width: 100%;
         gap: 10px;
     }
-    
+
+    .navbar .nav-menu a {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+    }
+
+    .hero {
+        padding: 60px 20px;
+        background-position: center;
+        background-size: cover;
+    }
+
     .hero h1 {
         font-size: 32px;
+        line-height: 1.2;
     }
-    
+
+    .hero p {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+
+    .btn {
+        padding: 10px 25px;
+        font-size: 14px;
+    }
+
     .templates-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-}
 
-/* Mobile (480px ба түүнээс бага) */
-@media (max-width: 480px) {
-    .hero h1 {
-        font-size: 24px;
+    .template-card img {
+        height: 180px;
     }
-    
-    .hero p {
-        font-size: 16px;
-    }
-    
-    .btn {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-    
+
     .template-card h3 {
         font-size: 18px;
     }
-    
-    .price {
-        font-size: 20px;
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .footer-section ul li a {
+        justify-content: center;
+    }
+
+    .footer-bottom {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 40% auto;
+        padding: 20px;
     }
 }
 
-/* Large Desktop (1400px ба түүнээс их) */
+/* ---------- MOBILE SMALL (max-width: 480px) ---------- */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    .navbar .logo-img {
+        height: 40px;
+    }
+
+    .hero {
+        padding: 50px 15px;
+    }
+
+    .hero h1 {
+        font-size: 26px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .btn {
+        width: 100%;
+        font-size: 13px;
+    }
+
+    .template-card img {
+        height: 150px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .footer {
+        padding: 50px 0 20px;
+    }
+
+    .footer-section h3,
+    .footer-section h4 {
+        font-size: 16px;
+    }
+
+    .footer-section p {
+        font-size: 13px;
+    }
+
+    .footer-bottom {
+        font-size: 12px;
+        margin-top: 30px;
+    }
+}
+
+/* ---------- DESKTOP LARGE (min-width: 1400px) ---------- */
 @media (min-width: 1400px) {
     .container {
-        max-width: 1320px;
+        max-width: 1400px;
+    }
+
+    .hero h1 {
+        font-size: 56px;
+    }
+
+    .hero p {
+        font-size: 22px;
+    }
+
+    .templates-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .template-card img {
+        height: 220px;
     }
 }

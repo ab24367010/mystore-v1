@@ -36,6 +36,14 @@ body {
     font-weight: bold;
     color: white;
     text-decoration: none;
+    display: flex;
+    align-items: center; /* Зураг ба текстийг босоогоор төвлөнө */
+}
+
+.navbar .logo-img {
+    height: 50px;          /* Логогийн өндөр */
+    margin-right: 10px;    /* Текстээс зай */
+    vertical-align: middle;
 }
 
 .navbar .nav-menu {
@@ -59,7 +67,7 @@ body {
 /* Hero section */
 .hero {
     /*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
-    background-image: url(../images/hero-bg.jpg);
+    background-image: url(../images/hero-bg.webp);
     background-size: cover;
     background-position: center;
     z-index: auto;

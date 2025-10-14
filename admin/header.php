@@ -64,6 +64,7 @@ if(!isAdmin()) {
             <li><a href="orders.php">Захиалгууд</a></li>
             <li><a href="templates.php">Template-үүд</a></li>
             <li><a href="users.php">Хэрэглэгчид</a></li>
+            <li><a href="change-password.php">Нууц үг солих</a></li>
             <li><a href="<?php echo SITE_URL; ?>" target="_blank">Сайт үзэх</a></li>
             <li><a href="logout.php" style="color: #ef4444;">Гарах</a></li>
         </ul>
