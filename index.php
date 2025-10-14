@@ -35,7 +35,8 @@ include 'includes/navbar.php';
             <div class="template-card">
                 <div style="position: relative; overflow: hidden;">
                     <img src="<?php echo $template['thumbnail'] ? SITE_URL . '/uploads/templates/' . $template['thumbnail'] : SITE_URL . '/images/placeholder.jpg'; ?>"
-                         alt="<?php echo $template['name']; ?>">
+                         alt="<?php echo htmlspecialchars($template['name']); ?>"
+                         loading="lazy">
 
                     <!-- Watermark -->
                     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;">

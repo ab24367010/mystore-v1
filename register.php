@@ -15,14 +15,24 @@ $success = '';
 
 // Форм submit хийхэд
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = clean($_POST['name']);
-    $email = clean($_POST['email']);
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
+    // CSRF validation
+    if (!isset($_POST['csrf_token']) || !validateCSRFToken($_POST['csrf_token'])) {
+        $error = "Invalid request. Please try again.";
+        logError('CSRF validation failed', ['ip' => $_SERVER['REMOTE_ADDR'], 'action' => 'register']);
+    }
+    // Rate limiting
+    elseif (!checkRateLimit('register', 3, 3600)) {
+        $error = "Хэт олон удаа бүртгэл үүсгэх оролдлоо хийлээ. 1 цагийн дараа дахин оролдоно уу.";
+        logError('Rate limit exceeded', ['ip' => $_SERVER['REMOTE_ADDR'], 'action' => 'register']);
+    } else {
+        $name = clean($_POST['name']);
+        $email = clean($_POST['email']);
+        $password = $_POST['password'];
+        $confirm_password = $_POST['confirm_password'];
 
-    // Validation
-    if (empty($name) || empty($email) || empty($password) || empty($confirm_password)) {
-        $error = "Бүх талбарыг бөглөнө үү";
+        // Validation
+        if (empty($name) || empty($email) || empty($password) || empty($confirm_password)) {
+            $error = "Бүх талбарыг бөглөнө үү";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Имэйл хаяг буруу байна";
     } elseif (strlen($password) < 6) {
@@ -95,6 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     }
+    }
 }
 
 $page_title = "Бүртгүүлэх";
@@ -111,6 +122,8 @@ include 'includes/navbar.php';
         <?php endif; ?>
 
         <form method="POST" action="">
+            <?php echo getCSRFField(); ?>
+
             <div class="form-group">
                 <label>Нэр</label>
                 <input type="text" name="name" placeholder="Таны нэр" required

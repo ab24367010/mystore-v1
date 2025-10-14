@@ -14,13 +14,23 @@ $error = '';
 
 // Форм submit хийхэд
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = clean($_POST['email']);
-    $password = $_POST['password'];
-    
-    // Validation
-    if(empty($email) || empty($password)) {
-        $error = "Бүх талбарыг бөглөнө үү";
+    // CSRF validation
+    if (!isset($_POST['csrf_token']) || !validateCSRFToken($_POST['csrf_token'])) {
+        $error = "Invalid request. Please try again.";
+        logError('CSRF validation failed', ['ip' => $_SERVER['REMOTE_ADDR'], 'action' => 'login']);
+    }
+    // Rate limiting
+    elseif (!checkRateLimit('login', 5, 900)) {
+        $error = "Хэт олон удаа оролдлоо. 15 минутын дараа дахин оролдоно уу.";
+        logError('Rate limit exceeded', ['ip' => $_SERVER['REMOTE_ADDR'], 'action' => 'login']);
     } else {
+        $email = clean($_POST['email']);
+        $password = $_POST['password'];
+
+        // Validation
+        if(empty($email) || empty($password)) {
+            $error = "Бүх талбарыг бөглөнө үү";
+        } else {
         // Database-аас хэрэглэгч хайх
         $sql = "SELECT * FROM users WHERE email = ?";
         $stmt = $conn->prepare($sql);
@@ -44,9 +54,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 redirect($redirect);
             } else {
                 $error = "Нууц үг буруу байна";
+                logError('Login failed - wrong password', ['email' => $email]);
             }
         } else {
             $error = "Имэйл хаяг олдсонгүй";
+            logError('Login failed - email not found', ['email' => $email]);
+        }
         }
     }
 }
@@ -65,9 +78,11 @@ include 'includes/navbar.php';
         <?php endif; ?>
         
         <form method="POST" action="">
+            <?php echo getCSRFField(); ?>
+
             <div class="form-group">
                 <label>Имэйл хаяг</label>
-                <input type="email" name="email" placeholder="your@email.com" required 
+                <input type="email" name="email" placeholder="your@email.com" required
                        value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
             </div>
             

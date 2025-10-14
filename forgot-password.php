@@ -14,11 +14,21 @@ $success = '';
 
 // Форм submit хийхэд
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = clean($_POST['email']);
+    // CSRF validation
+    if (!isset($_POST['csrf_token']) || !validateCSRFToken($_POST['csrf_token'])) {
+        $error = "Invalid request. Please try again.";
+        logError('CSRF validation failed', ['ip' => $_SERVER['REMOTE_ADDR'], 'action' => 'forgot_password']);
+    }
+    // Rate limiting
+    elseif (!checkRateLimit('forgot_password', 3, 3600)) {
+        $error = "Хэт олон удаа оролдлоо. 1 цагийн дараа дахин оролдоно уу.";
+        logError('Rate limit exceeded', ['ip' => $_SERVER['REMOTE_ADDR'], 'action' => 'forgot_password']);
+    } else {
+        $email = clean($_POST['email']);
 
-    // Validation
-    if(empty($email)) {
-        $error = "Имэйл хаягаа оруулна уу";
+        // Validation
+        if(empty($email)) {
+            $error = "Имэйл хаягаа оруулна уу";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Имэйл хаяг буруу байна";
     } else {
@@ -103,6 +113,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             redirect('verify-code.php?unknown=1');
         }
     }
+    }
 }
 
 $page_title = "Нууц үг мартсан";
@@ -127,6 +138,8 @@ include 'includes/navbar.php';
         <?php endif; ?>
 
         <form method="POST" action="">
+            <?php echo getCSRFField(); ?>
+
             <div class="form-group">
                 <label>Имэйл хаяг</label>
                 <input type="email" name="email" placeholder="your@email.com" required

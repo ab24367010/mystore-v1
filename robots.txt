@@ -1,0 +1,15 @@
+# MYSTORE - Robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /user/
+Disallow: /includes/
+Disallow: /vendor/
+Disallow: /uploads/
+Disallow: /*.php$
+
+# Sitemap
+Sitemap: http://localhost/mystore-v1/sitemap.xml
+
+# Crawl delay (seconds)
+Crawl-delay: 1

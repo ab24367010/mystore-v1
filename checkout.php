@@ -43,8 +43,12 @@ $error = '';
 
 // Форм submit хийхэд
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    // Захиалгын дугаар үүсгэх
+    // CSRF validation
+    if (!isset($_POST['csrf_token']) || !validateCSRFToken($_POST['csrf_token'])) {
+        $error = "Invalid request. Please try again.";
+        logError('CSRF validation failed', ['ip' => $_SERVER['REMOTE_ADDR'], 'action' => 'checkout']);
+    } else {
+        // Захиалгын дугаар үүсгэх
     $order_number = generateOrderNumber();
 
     // Download token үүсгэх
@@ -126,6 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $error = "Алдаа гарлаа. Дахин оролдоно уу.";
     }
+    }
 }
 
 $page_title = "Худалдаж авах";
@@ -175,6 +180,8 @@ include 'includes/navbar.php';
 
         <!-- Баталгаажуулах форм -->
         <form method="POST" action="">
+            <?php echo getCSRFField(); ?>
+
             <p style="color: #6b7280; margin-bottom: 20px; text-align: center;">
                 "Баталгаажуулах" товч дарснаар та манай үйлчилгээний нөхцөлийг хүлээн зөвшөөрч байна.
             </p>

@@ -20,7 +20,7 @@ include 'includes/navbar.php';
     <!-- Story Section -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 80px; align-items: center;">
         <div>
-            <img src="<?php echo SITE_URL; ?>/images/about-team.jpg"
+            <img src="<?php echo SITE_URL; ?>/images/about-team.webp"
                 alt="Team"
                 style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;"
                 onerror="this.src='https://via.placeholder.com/600x400/667eea/ffffff?text=Our+Team'">
@@ -113,7 +113,7 @@ include 'includes/navbar.php';
             <!-- Team Member 1 -->
             <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;">
                 <div style="width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-                    <img src="<?php echo SITE_URL; ?>/images/CEO.jpg"
+                    <img src="<?php echo SITE_URL; ?>/images/CEO.webp"
                         alt="Altan-Ochir"
                         style="width: 100%; height: 100%; object-fit: cover;"
                         onerror="this.src='https://via.placeholder.com/120x120/4facfe/ffffff?text=AO'">
@@ -129,7 +129,7 @@ include 'includes/navbar.php';
             <!-- Team Member 2 -->
             <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;">
                 <div style="width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-                    <img src="<?php echo SITE_URL; ?>/images/wearehiring.jpg"
+                    <img src="<?php echo SITE_URL; ?>/images/wearehiring.webp"
                         alt="Altan-Ochir"
                         style="width: 100%; height: 100%; object-fit: cover;"
                         onerror="this.src='https://via.placeholder.com/120x120/4facfe/ffffff?text=AO'">
@@ -144,7 +144,7 @@ include 'includes/navbar.php';
             <!-- Team Member 3 -->
             <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;">
                 <div style="width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-                    <img src="<?php echo SITE_URL; ?>/images/wearehiring.jpg"
+                    <img src="<?php echo SITE_URL; ?>/images/wearehiring.webp"
                         alt="Altan-Ochir"
                         style="width: 100%; height: 100%; object-fit: cover;"
                         onerror="this.src='https://via.placeholder.com/120x120/4facfe/ffffff?text=AO'">
