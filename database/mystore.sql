@@ -117,6 +117,29 @@ CREATE TABLE IF NOT EXISTS password_reset_codes (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ========================================
+-- 7. COOKIE_CONSENTS TABLE
+-- ========================================
+CREATE TABLE IF NOT EXISTS cookie_consents (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NULL COMMENT 'NULL for guest users',
+    session_id VARCHAR(255) COMMENT 'For tracking guest consents',
+    consent_essential TINYINT(1) DEFAULT 1 COMMENT 'Always true (required)',
+    consent_functional TINYINT(1) DEFAULT 0 COMMENT 'Google Maps, preferences',
+    consent_analytics TINYINT(1) DEFAULT 0 COMMENT 'Analytics/tracking (when added)',
+    consent_marketing TINYINT(1) DEFAULT 0 COMMENT 'Marketing cookies (when added)',
+    ip_address VARCHAR(45) COMMENT 'IPv4 or IPv6',
+    user_agent TEXT COMMENT 'Browser/device information',
+    consent_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
+
+    INDEX idx_user_id (user_id),
+    INDEX idx_session_id (session_id),
+    INDEX idx_consent_date (consent_date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ========================================
 -- INITIAL DATA
 -- ========================================
 

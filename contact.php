@@ -200,10 +200,24 @@ include 'includes/navbar.php';
 
     </div>
 
-    <!-- Map Section (Optional) -->
+    <!-- Map Section (Conditional on Cookie Consent) -->
     <div style="margin-top: 60px;">
         <h2 style="text-align: center; margin-bottom: 30px;">Манай байршил</h2>
-        <div style="background: #f3f4f6; height: 400px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+
+        <!-- Google Maps Placeholder (shown when consent not given) -->
+        <div class="google-maps-placeholder" style="background: #f3f4f6; height: 400px; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center;">
+            <div style="font-size: 60px; margin-bottom: 20px;">🗺️</div>
+            <h3 style="margin-bottom: 15px; color: #374151;">Google Maps идэвхгүй байна</h3>
+            <p style="color: #6b7280; margin-bottom: 25px; max-width: 500px;">
+                Газрын зургийг харахын тулд функциональ cookie-г зөвшөөрөх хэрэгтэй. Энэ нь Google-аас гуравдагч этгээдийн cookie ашиглах болно.
+            </p>
+            <button onclick="CookieConsent.openSettings()" class="btn btn-primary" style="padding: 12px 30px;">
+                Cookie тохиргоо нээх
+            </button>
+        </div>
+
+        <!-- Google Maps iframe (shown when consent is given) -->
+        <div class="google-maps-iframe" style="background: #f3f4f6; height: 400px; border-radius: 10px; display: none;">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d207446.32915335396!2d139.57605273186255!3d35.668410308564354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b857628235d%3A0xcdd8aef709a2b520!2zVG9reW8sINCi0L7QutC40L4!5e0!3m2!1smn!2sjp!4v1760423555412!5m2!1smn!2sjp" width="100%" height="400" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </div>

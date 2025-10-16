@@ -1,0 +1,7 @@
+Order Deny,Allow
+Deny from all
+
+# Allow access to save-cookie-consent.php for AJAX requests
+<Files "save-cookie-consent.php">
+    Allow from all
+</Files>

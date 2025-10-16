@@ -8,7 +8,7 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://localhost/mystore-v1/</loc>
+    <loc>https://bitnova.it.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <lastmod>2025-10-16</lastmod>
@@ -16,7 +16,7 @@
 
   <!-- Templates (Main product page) -->
   <url>
-    <loc>https://localhost/mystore-v1/templates.php</loc>
+    <loc>https://bitnova.it.com/templates.php</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <lastmod>2025-10-16</lastmod>
@@ -24,7 +24,7 @@
 
   <!-- About -->
   <url>
-    <loc>https://localhost/mystore-v1/about.php</loc>
+    <loc>https://bitnova.it.com/about.php</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <lastmod>2025-10-16</lastmod>
@@ -32,7 +32,7 @@
 
   <!-- Contact -->
   <url>
-    <loc>https://localhost/mystore-v1/contact.php</loc>
+    <loc>https://bitnova.it.com/contact.php</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <lastmod>2025-10-16</lastmod>
@@ -40,7 +40,7 @@
 
   <!-- FAQ -->
   <url>
-    <loc>https://localhost/mystore-v1/faq.php</loc>
+    <loc>https://bitnova.it.com/faq.php</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <lastmod>2025-10-16</lastmod>
@@ -48,7 +48,7 @@
 
   <!-- Privacy Policy -->
   <url>
-    <loc>https://localhost/mystore-v1/privacy-policy.php</loc>
+    <loc>https://bitnova.it.com/privacy-policy.php</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <lastmod>2025-10-16</lastmod>

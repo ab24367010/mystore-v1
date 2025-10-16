@@ -1,4 +1,4 @@
-# MYSTORE - Robots.txt
+# Bitnova - Robots.txt
 User-agent: *
 Allow: /
 
@@ -25,7 +25,7 @@ Disallow: /verify-code.php
 Disallow: /order-confirmation.php
 
 # Sitemap (Production дээр domain солих!)
-Sitemap: https://localhost/sitemap.xml
+Sitemap: https://bitnova.it.com/sitemap.xml
 
 # Crawl delay (seconds)
 Crawl-delay: 1

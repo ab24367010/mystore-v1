@@ -85,18 +85,131 @@ include 'includes/navbar.php';
 
         <!-- Cookie -->
         <section style="margin-bottom: 40px;">
-            <h2 style="color: #2563eb; margin-bottom: 20px;">5. Cookies</h2>
-            <p style="line-height: 1.8; color: #374151;">
-                Манай сайт cookies ашигладаг. Энэ нь:
+            <h2 style="color: #2563eb; margin-bottom: 20px;">5. Cookie бодлого</h2>
+            <p style="line-height: 1.8; color: #374151; margin-bottom: 20px;">
+                Манай вэбсайт нь GDPR болон CCPA хуулийн дагуу янз бүрийн төрлийн cookie ашигладаг.
+                Бид таны туршлагыг сайжруулах болон хуулийн шаардлагыг хангахын тулд зөвшөөрлийн систем нэвтрүүлсэн.
+            </p>
+
+            <h3 style="margin-top: 20px; margin-bottom: 15px; color: #1f2937;">5.1 Зайлшгүй шаардлагатай Cookie</h3>
+            <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981; margin-bottom: 20px;">
+                <p style="line-height: 1.8; color: #374151; margin-bottom: 10px;">
+                    <strong>Зорилго:</strong> Вэбсайтын үндсэн функцуудад шаардлагатай
+                </p>
+                <p style="line-height: 1.8; color: #374151; margin-bottom: 10px;">
+                    <strong>Жишээ нь:</strong>
+                </p>
+                <ul style="line-height: 1.8; color: #374151; margin-left: 20px;">
+                    <li><code>MYSTORE_SESSION</code> - Нэвтрэх төлөв, аюулгүй байдал</li>
+                    <li><code>cookie_consent</code> - Cookie зөвшөөрлийн сонголт</li>
+                </ul>
+                <p style="line-height: 1.8; color: #374151; margin-top: 10px;">
+                    <strong>Хадгалагдах хугацаа:</strong> Сешн дуустал (эсвэл 1 цаг)
+                </p>
+                <p style="line-height: 1.8; color: #374151; margin-top: 10px;">
+                    <strong>Зөвшөөрөл:</strong> <span style="color: #10b981; font-weight: 600;">Шаардлагагүй</span> (зайлшгүй шаардлагатай)
+                </p>
+            </div>
+
+            <h3 style="margin-top: 20px; margin-bottom: 15px; color: #1f2937;">5.2 Функциональ Cookie</h3>
+            <div style="background: #eff6ff; padding: 20px; border-radius: 8px; border-left: 4px solid #3b82f6; margin-bottom: 20px;">
+                <p style="line-height: 1.8; color: #374151; margin-bottom: 10px;">
+                    <strong>Зорилго:</strong> Нэмэлт функц болон таны сонголтыг санах
+                </p>
+                <p style="line-height: 1.8; color: #374151; margin-bottom: 10px;">
+                    <strong>Жишээ нь:</strong>
+                </p>
+                <ul style="line-height: 1.8; color: #374151; margin-left: 20px;">
+                    <li>Google Maps (байршил харуулах)</li>
+                    <li>Хэл тохиргоо</li>
+                    <li>Харагдац тохируулга</li>
+                </ul>
+                <p style="line-height: 1.8; color: #374151; margin-top: 10px;">
+                    <strong>Гуравдагч этгээд:</strong> Google Maps API
+                </p>
+                <p style="line-height: 1.8; color: #374151; margin-top: 10px;">
+                    <strong>Зөвшөөрөл:</strong> <span style="color: #3b82f6; font-weight: 600;">Шаардлагатай</span> (сонголттой)
+                </p>
+            </div>
+
+            <h3 style="margin-top: 20px; margin-bottom: 15px; color: #1f2937;">5.3 Шинжилгээний Cookie</h3>
+            <div style="background: #fff7ed; padding: 20px; border-radius: 8px; border-left: 4px solid #f97316; margin-bottom: 20px;">
+                <p style="line-height: 1.8; color: #374151; margin-bottom: 10px;">
+                    <strong>Зорилго:</strong> Вэбсайтын ашиглалтыг ойлгох, сайжруулах
+                </p>
+                <p style="line-height: 1.8; color: #374151; margin-bottom: 10px;">
+                    <strong>Жишээ нь:</strong>
+                </p>
+                <ul style="line-height: 1.8; color: #374151; margin-left: 20px;">
+                    <li>Google Analytics (одоогоор суулгаагүй)</li>
+                    <li>Хуудас үзэлтийн тоо</li>
+                    <li>Хэрэглэгчийн зан байдал</li>
+                </ul>
+                <p style="line-height: 1.8; color: #374151; margin-top: 10px;">
+                    <strong>Мэдээлэл:</strong> Бүх мэдээлэл anonymous байна
+                </p>
+                <p style="line-height: 1.8; color: #374151; margin-top: 10px;">
+                    <strong>Зөвшөөрөл:</strong> <span style="color: #f97316; font-weight: 600;">Шаардлагатай</span> (сонголттой)
+                </p>
+            </div>
+
+            <h3 style="margin-top: 20px; margin-bottom: 15px; color: #1f2937;">5.4 Маркетингийн Cookie</h3>
+            <div style="background: #faf5ff; padding: 20px; border-radius: 8px; border-left: 4px solid #a855f7; margin-bottom: 20px;">
+                <p style="line-height: 1.8; color: #374151; margin-bottom: 10px;">
+                    <strong>Зорилго:</strong> Танд хамааралтай зар сурталчилгаа харуулах
+                </p>
+                <p style="line-height: 1.8; color: #374151; margin-bottom: 10px;">
+                    <strong>Жишээ нь:</strong>
+                </p>
+                <ul style="line-height: 1.8; color: #374151; margin-left: 20px;">
+                    <li>Facebook Pixel (одоогоор суулгаагүй)</li>
+                    <li>Google Ads (одоогоор суулгаагүй)</li>
+                    <li>Retargeting pixels</li>
+                </ul>
+                <p style="line-height: 1.8; color: #374151; margin-top: 10px;">
+                    <strong>Зөвшөөрөл:</strong> <span style="color: #a855f7; font-weight: 600;">Шаардлагатай</span> (сонголттой)
+                </p>
+            </div>
+
+            <h3 style="margin-top: 30px; margin-bottom: 15px; color: #1f2937;">5.5 Cookie удирдах</h3>
+            <p style="line-height: 1.8; color: #374151; margin-bottom: 15px;">
+                Та өөрийн cookie тохиргоог дараах байдлаар удирдаж болно:
             </p>
             <ul style="line-height: 1.8; color: #374151; margin-left: 20px; margin-bottom: 15px;">
-                <li>🍪 Нэвтрэх төлөв хадгалах</li>
-                <li>🍪 Таны сонголтыг санах</li>
-                <li>🍪 Сайтын ашиглалтыг шинжлэх</li>
+                <li>🎛️ Манай cookie banner дээрх <strong>"Тохируулах"</strong> товчийг дарах</li>
+                <li>🎛️ Хөтөч дээрээ cookie-г устгах</li>
+                <li>🎛️ Хөтчийн тохиргоо дээр cookie-г идэвхгүй болгох</li>
+            </ul>
+
+            <div style="background: #fef2f2; padding: 20px; border-radius: 8px; border-left: 4px solid #ef4444; margin-top: 20px;">
+                <p style="line-height: 1.8; color: #374151; margin: 0;">
+                    <strong>⚠️ Анхааруулга:</strong> Зайлшгүй cookie-г идэвхгүй болговол сайт зөв ажиллахгүй болж магадгүй
+                    (жишээ нь: нэвтрэх, худалдан авалт хийх боломжгүй болно).
+                </p>
+            </div>
+
+            <h3 style="margin-top: 30px; margin-bottom: 15px; color: #1f2937;">5.6 GDPR & CCPA хуулийн дагуу</h3>
+            <p style="line-height: 1.8; color: #374151; margin-bottom: 10px;">
+                Бид дараах хуулиудыг дагаж мөрддөг:
+            </p>
+            <ul style="line-height: 1.8; color: #374151; margin-left: 20px; margin-bottom: 15px;">
+                <li>🇪🇺 <strong>GDPR</strong> (General Data Protection Regulation) - ЕХ-ны хэрэглэгчид</li>
+                <li>🇺🇸 <strong>CCPA</strong> (California Consumer Privacy Act) - Калифорниа хэрэглэгчид</li>
+                <li>🇬🇧 <strong>UK GDPR</strong> - Их Британийн хэрэглэгчид</li>
             </ul>
             <p style="line-height: 1.8; color: #374151;">
-                Та хөтөч дээрээ cookies-г идэвхгүй болгож болно, гэхдээ зарим функц ажиллахгүй болж магадгүй.
+                Та эдгээр cookie-г зөвшөөрөх эсвэл татгалзах эрхтэй. Манай систем таны сонголтыг
+                хадгалж, 365 хоногийн турш санах болно.
             </p>
+
+            <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin-top: 20px; text-align: center;">
+                <p style="line-height: 1.8; color: #374151; margin-bottom: 15px;">
+                    Та cookie тохиргоогоо дараах товчийг дарж өөрчилж болно:
+                </p>
+                <button onclick="CookieConsent.openSettings()" class="btn btn-primary">
+                    Cookie тохиргоо нээх
+                </button>
+            </div>
         </section>
 
         <!-- Аюулгүй байдал -->

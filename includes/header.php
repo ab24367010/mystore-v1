@@ -29,6 +29,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/style.css">
     <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/responsive.css">
+    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/cookie-consent.css">
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL; ?>/images/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
 

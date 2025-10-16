@@ -1,9 +1,14 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
 // Composer autoload
 require_once __DIR__ . '/../vendor/autoload.php';
+
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/../logs/php_errors.log');
 
 // Load .env файл
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
@@ -25,6 +30,22 @@ if (!$conn) {
 
 // UTF-8 тохиргоо
 mysqli_set_charset($conn, "utf8mb4");
+
+// PDO холболт (cookie consent болон бусад файлд ашиглана)
+try {
+    $pdo = new PDO(
+        "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4",
+        DB_USER,
+        DB_PASS,
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false
+        ]
+    );
+} catch (PDOException $e) {
+    die("PDO холболт амжилтгүй: " . $e->getMessage());
+}
 
 // Сайтын тохиргоо (.env-ээс унших)
 define('SITE_NAME', $_ENV['SITE_NAME']);
@@ -56,6 +77,7 @@ if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.cookie_httponly', 1);
     ini_set('session.use_only_cookies', 1);
     ini_set('session.cookie_secure', isset($_SERVER['HTTPS']) ? 1 : 0);
+    ini_set('session.cookie_samesite', 'Lax');
     session_name('MYSTORE_SESSION');
     session_start();
 }
