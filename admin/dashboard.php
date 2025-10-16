@@ -5,25 +5,26 @@ require_once '../includes/functions.php';
 $page_title = "Dashboard";
 include 'header.php';
 
-// Статистик
-// Нийт захиалга
-$total_orders = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM orders"))['count'];
+// Статистик - Optimized: 6 query-г 1 болгосон
+$stats_sql = "
+    SELECT
+        (SELECT COUNT(*) FROM orders) as total_orders,
+        (SELECT COUNT(*) FROM orders WHERE DATE(created_at) = CURDATE()) as today_orders,
+        (SELECT COUNT(*) FROM orders WHERE status = 'pending') as pending_orders,
+        (SELECT COUNT(*) FROM users) as total_users,
+        (SELECT COUNT(*) FROM templates WHERE status = 'active') as total_templates,
+        (SELECT COALESCE(SUM(t.price), 0) FROM orders o JOIN templates t ON o.template_id = t.id WHERE MONTH(o.created_at) = MONTH(CURDATE()) AND o.status IN ('paid', 'delivered')) as monthly_revenue
+";
 
-// Өнөөдрийн захиалга
-$today_orders = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM orders WHERE DATE(created_at) = CURDATE()"))['count'];
+$stats_result = mysqli_query($conn, $stats_sql);
+$stats = mysqli_fetch_assoc($stats_result);
 
-// Pending захиалга
-$pending_orders = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM orders WHERE status = 'pending'"))['count'];
-
-// Нийт хэрэглэгч
-$total_users = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM users"))['count'];
-
-// Нийт template
-$total_templates = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM templates WHERE status = 'active'"))['count'];
-
-// Энэ сарын орлого
-$monthly_revenue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(t.price) as total FROM orders o JOIN templates t ON o.template_id = t.id WHERE MONTH(o.created_at) = MONTH(CURDATE()) AND o.status IN ('paid', 'delivered')"))['total'];
-$monthly_revenue = $monthly_revenue ? $monthly_revenue : 0;
+$total_orders = $stats['total_orders'];
+$today_orders = $stats['today_orders'];
+$pending_orders = $stats['pending_orders'];
+$total_users = $stats['total_users'];
+$total_templates = $stats['total_templates'];
+$monthly_revenue = $stats['monthly_revenue'];
 
 // Сүүлийн захиалгууд
 $recent_orders = mysqli_query($conn, "SELECT o.*, u.name as user_name, t.name as template_name FROM orders o JOIN users u ON o.user_id = u.id JOIN templates t ON o.template_id = t.id ORDER BY o.created_at DESC LIMIT 5");

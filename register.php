@@ -21,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         logError('CSRF validation failed', ['ip' => $_SERVER['REMOTE_ADDR'], 'action' => 'register']);
     }
     // Rate limiting
-    elseif (!checkRateLimit('register', 3, 3600)) {
-        $error = "Хэт олон удаа бүртгэл үүсгэх оролдлоо хийлээ. 1 цагийн дараа дахин оролдоно уу.";
+    elseif (!checkRateLimit('register', REGISTER_MAX_ATTEMPTS, REGISTER_TIME_WINDOW)) {
+        $error = "Хэт олон удаа бүртгэл үүсгэх оролдлоо хийлээ. " . (REGISTER_TIME_WINDOW / 3600) . " цагийн дараа дахин оролдоно уу.";
         logError('Rate limit exceeded', ['ip' => $_SERVER['REMOTE_ADDR'], 'action' => 'register']);
     } else {
         $name = clean($_POST['name']);
@@ -35,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = "Бүх талбарыг бөглөнө үү";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Имэйл хаяг буруу байна";
-    } elseif (strlen($password) < 6) {
-        $error = "Нууц үг багадаа 6 тэмдэгт байх ёстой";
+    } elseif (strlen($password) < MIN_PASSWORD_LENGTH) {
+        $error = "Нууц үг багадаа " . MIN_PASSWORD_LENGTH . " тэмдэгт байх ёстой";
     } elseif ($password !== $confirm_password) {
         $error = "Нууц үг таарахгүй байна";
     } else {
@@ -137,13 +137,13 @@ include 'includes/navbar.php';
             </div>
 
             <div class="form-group">
-                <label>Нууц үг (багадаа 6 тэмдэгт)</label>
-                <input type="password" name="password" placeholder="••••••••" required minlength="6">
+                <label>Нууц үг (багадаа <?php echo MIN_PASSWORD_LENGTH; ?> тэмдэгт)</label>
+                <input type="password" name="password" placeholder="••••••••" required minlength="<?php echo MIN_PASSWORD_LENGTH; ?>">
             </div>
 
             <div class="form-group">
                 <label>Нууц үг баталгаажуулах</label>
-                <input type="password" name="confirm_password" placeholder="••••••••" required minlength="6">
+                <input type="password" name="confirm_password" placeholder="••••••••" required minlength="<?php echo MIN_PASSWORD_LENGTH; ?>">
             </div>
 
             <button type="submit" class="btn btn-primary" style="width: 100%;">

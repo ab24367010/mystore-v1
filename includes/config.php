@@ -31,6 +31,26 @@ define('SITE_NAME', $_ENV['SITE_NAME']);
 define('SITE_URL', $_ENV['SITE_URL']);
 define('ADMIN_EMAIL', $_ENV['ADMIN_EMAIL']);
 
+// Security & Validation Constants
+define('MIN_PASSWORD_LENGTH', 6);
+define('MAX_PASSWORD_LENGTH', 100);
+define('TOKEN_LENGTH', 32);
+define('VERIFICATION_CODE_LENGTH', 6);
+define('MAX_FILE_SIZE', 5242880); // 5MB in bytes
+define('SESSION_LIFETIME', 3600); // 1 hour in seconds
+
+// Rate Limiting Constants
+define('LOGIN_MAX_ATTEMPTS', 5);
+define('LOGIN_TIME_WINDOW', 900); // 15 minutes
+define('REGISTER_MAX_ATTEMPTS', 3);
+define('REGISTER_TIME_WINDOW', 3600); // 1 hour
+define('PASSWORD_RESET_MAX_ATTEMPTS', 3);
+define('PASSWORD_RESET_TIME_WINDOW', 3600); // 1 hour
+
+// Token Expiration Constants
+define('DOWNLOAD_TOKEN_DAYS', 30);
+define('PASSWORD_RESET_MINUTES', 15);
+
 // Session аюулгүй байдал
 if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.cookie_httponly', 1);

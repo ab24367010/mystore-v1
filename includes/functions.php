@@ -17,18 +17,19 @@ function setAlert($message, $type = 'success') {
     $_SESSION['alert_type'] = $type;
 }
 
-// Alert харуулах
+// Alert харуулах (Accessibility: ARIA-live region)
 function showAlert() {
     if(isset($_SESSION['alert'])) {
         $type = $_SESSION['alert_type'];
         $message = $_SESSION['alert'];
-        
+
         $color = ($type == 'success') ? 'green' : 'red';
-        
-        echo "<div style='background: $color; color: white; padding: 15px; margin: 10px 0; border-radius: 5px;'>";
-        echo $message;
+        $role = ($type == 'success') ? 'status' : 'alert';
+
+        echo "<div role='$role' aria-live='polite' aria-atomic='true' style='background: $color; color: white; padding: 15px; margin: 10px 0; border-radius: 5px;'>";
+        echo htmlspecialchars($message);
         echo "</div>";
-        
+
         unset($_SESSION['alert']);
         unset($_SESSION['alert_type']);
     }
@@ -55,7 +56,7 @@ function formatDate($date) {
 }
 
 // Random token үүсгэх
-function generateToken($length = 32) {
+function generateToken($length = TOKEN_LENGTH) {
     return bin2hex(random_bytes($length));
 }
 
@@ -116,7 +117,7 @@ function checkRateLimit($action, $max_attempts = 5, $time_window = 900) {
 }
 
 // File upload validation
-function validateImageUpload($file, $max_size = 5242880) { // 5MB default
+function validateImageUpload($file, $max_size = MAX_FILE_SIZE) {
     $allowed_types = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
     $allowed_extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
 

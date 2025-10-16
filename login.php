@@ -20,8 +20,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         logError('CSRF validation failed', ['ip' => $_SERVER['REMOTE_ADDR'], 'action' => 'login']);
     }
     // Rate limiting
-    elseif (!checkRateLimit('login', 5, 900)) {
-        $error = "Хэт олон удаа оролдлоо. 15 минутын дараа дахин оролдоно уу.";
+    elseif (!checkRateLimit('login', LOGIN_MAX_ATTEMPTS, LOGIN_TIME_WINDOW)) {
+        $error = "Хэт олон удаа оролдлоо. " . (LOGIN_TIME_WINDOW / 60) . " минутын дараа дахин оролдоно уу.";
         logError('Rate limit exceeded', ['ip' => $_SERVER['REMOTE_ADDR'], 'action' => 'login']);
     } else {
         $email = clean($_POST['email']);
@@ -43,21 +43,26 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             // Нууц үг шалгах
             if(password_verify($password, $user['password'])) {
+                // Session fixation халдлагаас хамгаалах
+                session_regenerate_id(true);
+
                 // Амжилттай нэвтэрсэн
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_name'] = $user['name'];
                 $_SESSION['user_email'] = $user['email'];
-                
+
                 setAlert("Амжилттай нэвтэрлээ! Тавтай морил, " . $user['name'], 'success');
-                
+
                 // Буцаж явах хуудас руу redirect
                 redirect($redirect);
             } else {
-                $error = "Нууц үг буруу байна";
+                // Security: User enumeration-аас хамгаалах нэгдсэн мессеж
+                $error = "Имэйл эсвэл нууц үг буруу байна";
                 logError('Login failed - wrong password', ['email' => $email]);
             }
         } else {
-            $error = "Имэйл хаяг олдсонгүй";
+            // Security: User enumeration-аас хамгаалах нэгдсэн мессеж
+            $error = "Имэйл эсвэл нууц үг буруу байна";
             logError('Login failed - email not found', ['email' => $email]);
         }
         }

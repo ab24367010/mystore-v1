@@ -1,60 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!--
+    АНХААР: Production дээр deploy хийхдээ энэ URL-үүдийг бодит domain-аар солих!
+    Жишээ: https://yourdomain.com/
+  -->
+
   <!-- Homepage -->
   <url>
-    <loc>http://localhost/mystore-v1/</loc>
+    <loc>https://localhost/mystore-v1/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <lastmod>2025-10-16</lastmod>
   </url>
 
-  <!-- Templates -->
+  <!-- Templates (Main product page) -->
   <url>
-    <loc>http://localhost/mystore-v1/templates.php</loc>
+    <loc>https://localhost/mystore-v1/templates.php</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+    <lastmod>2025-10-16</lastmod>
   </url>
 
   <!-- About -->
   <url>
-    <loc>http://localhost/mystore-v1/about.php</loc>
+    <loc>https://localhost/mystore-v1/about.php</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <lastmod>2025-10-16</lastmod>
   </url>
 
   <!-- Contact -->
   <url>
-    <loc>http://localhost/mystore-v1/contact.php</loc>
+    <loc>https://localhost/mystore-v1/contact.php</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <lastmod>2025-10-16</lastmod>
   </url>
 
   <!-- FAQ -->
   <url>
-    <loc>http://localhost/mystore-v1/faq.php</loc>
+    <loc>https://localhost/mystore-v1/faq.php</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <lastmod>2025-10-16</lastmod>
   </url>
 
   <!-- Privacy Policy -->
   <url>
-    <loc>http://localhost/mystore-v1/privacy-policy.php</loc>
+    <loc>https://localhost/mystore-v1/privacy-policy.php</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
+    <lastmod>2025-10-16</lastmod>
   </url>
 
-  <!-- Login -->
-  <url>
-    <loc>http://localhost/mystore-v1/login.php</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Register -->
-  <url>
-    <loc>http://localhost/mystore-v1/register.php</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
+  <!--
+    NOTE: Login/Register хуудсууд sitemap-аас хассан (robots.txt-д Disallow байгаа)
+    SEO-д хэрэггүй, crawlers-д ачаалал үүсгэдэг
+  -->
 
 </urlset>

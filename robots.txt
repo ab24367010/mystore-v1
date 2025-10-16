@@ -1,15 +1,31 @@
 # MYSTORE - Robots.txt
 User-agent: *
 Allow: /
+
+# Хамгаалах хавтсууд (Admin, User, Backend)
 Disallow: /admin/
 Disallow: /user/
 Disallow: /includes/
 Disallow: /vendor/
-Disallow: /uploads/
-Disallow: /*.php$
+Disallow: /logs/
+Disallow: /database/
 
-# Sitemap
-Sitemap: http://localhost/mystore-v1/sitemap.xml
+# Upload файлууд (Template preview зөвшөөрөх)
+Disallow: /uploads/files/
+Allow: /uploads/templates/
+
+# Private хуудсууд (Login, Register, Checkout)
+Disallow: /login.php
+Disallow: /register.php
+Disallow: /logout.php
+Disallow: /checkout.php
+Disallow: /forgot-password.php
+Disallow: /reset-password.php
+Disallow: /verify-code.php
+Disallow: /order-confirmation.php
+
+# Sitemap (Production дээр domain солих!)
+Sitemap: https://localhost/sitemap.xml
 
 # Crawl delay (seconds)
 Crawl-delay: 1

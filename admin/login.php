@@ -30,16 +30,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             // Нууц үг шалгах
             if(password_verify($password, $admin['password'])) {
+                // Session fixation халдлагаас хамгаалах
+                session_regenerate_id(true);
+
                 // Амжилттай нэвтэрсэн
                 $_SESSION['admin_id'] = $admin['id'];
                 $_SESSION['admin_username'] = $admin['username'];
-                
+
                 redirect('dashboard.php');
             } else {
-                $error = "Нууц үг буруу байна";
+                // Security: User enumeration-аас хамгаалах нэгдсэн мессеж
+                $error = "Нэвтрэх нэр эсвэл нууц үг буруу байна";
             }
         } else {
-            $error = "Админ олдсонгүй";
+            // Security: User enumeration-аас хамгаалах нэгдсэн мессеж
+            $error = "Нэвтрэх нэр эсвэл нууц үг буруу байна";
         }
     }
 }
