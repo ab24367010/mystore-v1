@@ -192,7 +192,7 @@ include 'includes/navbar.php';
         <?php endif; ?>
 
         <?php if(!$is_unknown): ?>
-            <form method="POST" action="">
+            <form method="POST" action="" data-loading="Код баталгаажуулж байна..." data-loading-overlay>
                 <div class="form-group">
                     <label>Баталгаажуулах код</label>
                     <input type="text" name="code" placeholder="000000" required maxlength="6" pattern="[0-9]{6}"

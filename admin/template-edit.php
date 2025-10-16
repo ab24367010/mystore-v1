@@ -185,7 +185,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="alert alert-error"><?php echo $error; ?></div>
     <?php endif; ?>
     
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST" action="" data-loading="Template шинэчлэж байна..." data-loading-overlay enctype="multipart/form-data">
         
         <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
             

@@ -72,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="alert alert-error"><?php echo $error; ?></div>
         <?php endif; ?>
         
-        <form method="POST" action="">
+        <form method="POST" action="" data-loading="Нэвтрэх..." data-loading-overlay>
             <div class="form-group">
                 <label>Нэвтрэх нэр</label>
                 <input type="text" name="username" placeholder="admin" required autofocus

@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS password_reset_codes (
 -- Username: admin
 -- Password: admin123 (CHANGE THIS IN PRODUCTION!)
 INSERT INTO admins (username, password, email) VALUES
-('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@mystore.com')
+('admin', '$2y$10$31uP07gslM24hm/gE9MfhuHLj2Iy.obGQsAhoeTlkjCqDuptaA8Vm', 'admin@mystore.com')
 ON DUPLICATE KEY UPDATE username = username;
 
 -- Sample templates (Optional - for testing)

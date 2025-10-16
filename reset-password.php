@@ -149,7 +149,7 @@ include 'includes/navbar.php';
                 <div class="alert alert-error"><?php echo $error; ?></div>
             <?php endif; ?>
 
-            <form method="POST" action="">
+            <form method="POST" action="" data-loading="Нууц үг шинэчлэх..." data-loading-overlay>
                 <div class="form-group">
                     <label>Шинэ нууц үг (багадаа 6 тэмдэгт)</label>
                     <input type="password" name="password" placeholder="••••••••" required minlength="6"

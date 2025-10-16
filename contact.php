@@ -101,7 +101,7 @@ include 'includes/navbar.php';
                     <div class="alert alert-error"><?php echo $error; ?></div>
                 <?php endif; ?>
 
-                <form method="POST" action="">
+                <form method="POST" action="" data-loading="Мессеж илгээж байна..." data-loading-overlay>
                     <div class="form-group">
                         <label>Нэр *</label>
                         <input type="text" name="name" required placeholder="Таны нэр"

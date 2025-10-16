@@ -121,7 +121,7 @@ include 'includes/navbar.php';
             <div class="alert alert-error"><?php echo $error; ?></div>
         <?php endif; ?>
 
-        <form method="POST" action="">
+        <form method="POST" action="" data-loading="Бүртгэл үүсгэж байна..." data-loading-overlay>
             <?php echo getCSRFField(); ?>
 
             <div class="form-group">

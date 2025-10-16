@@ -179,7 +179,7 @@ include 'includes/navbar.php';
         </div>
 
         <!-- Баталгаажуулах форм -->
-        <form method="POST" action="">
+        <form method="POST" action="" data-loading="Захиалга үүсгэж байна..." data-loading-overlay>
             <?php echo getCSRFField(); ?>
 
             <p style="color: #6b7280; margin-bottom: 20px; text-align: center;">

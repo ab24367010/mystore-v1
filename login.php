@@ -82,7 +82,7 @@ include 'includes/navbar.php';
             <div class="alert alert-error"><?php echo $error; ?></div>
         <?php endif; ?>
         
-        <form method="POST" action="">
+        <form method="POST" action="" data-loading="Нэвтэрч байна..." data-loading-overlay>
             <?php echo getCSRFField(); ?>
 
             <div class="form-group">
@@ -90,7 +90,7 @@ include 'includes/navbar.php';
                 <input type="email" name="email" placeholder="your@email.com" required
                        value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
             </div>
-            
+
             <div class="form-group">
                 <label>Нууц үг</label>
                 <input type="password" name="password" placeholder="••••••••" required>

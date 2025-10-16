@@ -79,7 +79,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="alert alert-success"><?php echo $success; ?></div>
             <?php endif; ?>
 
-            <form method="POST" action="">
+            <form method="POST" action="" data-loading="Нууц үг солиж байна..." data-loading-overlay>
 
                 <div class="form-group">
                     <label>Одоогийн нууц үг *</label>

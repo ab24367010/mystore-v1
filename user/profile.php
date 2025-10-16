@@ -123,7 +123,7 @@ include '../includes/navbar.php';
     <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 30px;">
         <h2 style="margin-bottom: 20px;">Миний мэдээлэл</h2>
         
-        <form method="POST" action="">
+        <form method="POST" action="" data-loading="Мэдээлэл шинэчилж байна..." data-loading-overlay>
             <div class="form-group">
                 <label>Нэр</label>
                 <input type="text" name="name" required value="<?php echo htmlspecialchars($user['name']); ?>">
@@ -150,7 +150,7 @@ include '../includes/navbar.php';
     <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
         <h2 style="margin-bottom: 20px;">Нууц үг солих</h2>
         
-        <form method="POST" action="">
+        <form method="POST" action="" data-loading="Нууц үг солиж байна..." data-loading-overlay>
             <div class="form-group">
                 <label>Одоогийн нууц үг</label>
                 <input type="password" name="current_password" required placeholder="••••••••">
